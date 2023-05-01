@@ -36,7 +36,7 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
-	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+	//annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.graphql:spring-graphql-test'
 }

@@ -17,17 +17,20 @@ public class StudentInfoEntity {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	String id;
+	private Long id;
 
 	@Column(name = "NAME")
-	String name;
+	private String name;
 
 	@Column(name = "AGE")
-	String age;
+	private String age;
 
 	@Column(name = "GENDER")
-	String gender;
+	private String gender;
+
+	@Column(name = "SCHOOL_NAME")
+	private String schoolName;
 
 	@Column(name = "REMARKS")
-	String remarks;
+	private String remarks;
 }

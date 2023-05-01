@@ -1,10 +1,12 @@
 package com.likhith.student.info.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import com.likhith.student.info.dto.PushStudentInfoRequest;
 import com.likhith.student.info.dto.StudentInfo;
 import com.likhith.student.info.entity.StudentInfoEntity;
 import com.likhith.student.info.mapper.StudentInfoServiceMapper;
@@ -20,18 +22,18 @@ public class StudentInfoService {
 	@Autowired
 	StudentInfoServiceMapper studentInfoServiceMapper;
 
-	public StudentInfoResponse getStudentInfoById(String id) {
+	public StudentInfoResponse getStudentInfoByName(String name) {
 
 		StudentInfoResponse studentInfoResponse = new StudentInfoResponse();
-		StudentInfo studentInfo = new StudentInfo();
+		List<StudentInfo> studentInfoList = null;
 
 		try {
-			Optional<StudentInfoEntity> studentInfoEntity = studentInfoRepository.findById(id);
+			List<StudentInfoEntity> studentInfoEntity = studentInfoRepository.findByName(name);
 
-			if (studentInfoEntity.isPresent()) {
-				studentInfo = studentInfoServiceMapper.mapStudentInfoEntityToStudentInfo(studentInfoEntity.get());
+			if (!CollectionUtils.isEmpty(studentInfoEntity)) {
+				studentInfoList = studentInfoServiceMapper.mapStudentInfoEntityToStudentInfo(studentInfoEntity);
 
-				studentInfoResponse.setStudentInfo(studentInfo);
+				studentInfoResponse.setStudentInfo(studentInfoList);
 			}
 
 		} catch (Exception e) {
@@ -40,6 +42,37 @@ public class StudentInfoService {
 
 		return studentInfoResponse;
 
+	}
+
+	public List<StudentInfo> getStudentInfoBySchoolName(List<String> schoolName) {
+
+		List<StudentInfo> studentInfoList = null;
+
+		try {
+			List<StudentInfoEntity> studentInfoEntity = studentInfoRepository.findBySchoolNameIn(schoolName);
+
+			if (!CollectionUtils.isEmpty(studentInfoEntity)) {
+				studentInfoList = studentInfoServiceMapper.mapStudentInfoEntityToStudentInfo(studentInfoEntity);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return studentInfoList;
+
+	}
+
+	public void pushStudentInfo(List<PushStudentInfoRequest> request) {
+
+		List<StudentInfoEntity> studentInfoEntity = null;
+
+		if (!CollectionUtils.isEmpty(request)) {
+			studentInfoEntity = studentInfoServiceMapper.mapPushStudentInfoRequestToStudentInfoEntity(request);
+		}
+
+		studentInfoRepository.saveAll(studentInfoEntity);
 	}
 
 }

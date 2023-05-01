@@ -1,5 +1,10 @@
 type Query{
-getStudentInfoById(id: String): StudentInfoResponse
+getStudentInfoByName(name: String): StudentInfoResponse
+getStudentsInfoBySchoolName(schoolName: [String]): [StudentInfo]
+}
+
+type Mutation{
+pushStudentInfo(request: [PushStudentInfoRequest]): String
 }
 
 type StudentInfoResponse{
@@ -11,5 +16,14 @@ id: ID!
 name: String!
 age: String!
 gender: String!
+schoolName: String!
+remarks: String!
+}
+
+input PushStudentInfoRequest{
+name: String!
+age: String!
+gender: String!
+schoolName: String!
 remarks: String!
 }

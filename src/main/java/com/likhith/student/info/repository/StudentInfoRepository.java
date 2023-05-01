@@ -1,6 +1,6 @@
 package com.likhith.student.info.repository;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,10 @@ import com.likhith.student.info.entity.StudentInfoEntity;
 
 @Repository
 @Transactional
-public interface StudentInfoRepository extends JpaRepository<StudentInfoEntity, String> {
+public interface StudentInfoRepository extends JpaRepository<StudentInfoEntity, Long> {
 
-	public Optional<StudentInfoEntity> findById(String id);
+	List<StudentInfoEntity> findByName(String name);
+
+	List<StudentInfoEntity> findBySchoolNameIn(List<String> schoolName);
+
 }
