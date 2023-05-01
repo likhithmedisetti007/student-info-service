@@ -1,12 +1,14 @@
 spring:
   application:
     name: student-info-service
-  config:
-    import: "optional:configserver:"
+#  config:
+#    import: "optional:configserver:"
+  profiles:
+    active: local
   datasource:
-    url: jdbc:oracle:thin:@127.0.0.1:1521:xe
-    username: likhith
-    password: likhith
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: xe
+    password: password
     driver-class-name: oracle.jdbc.OracleDriver
   jpa:
     hibernate:
@@ -15,16 +17,16 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.Oracle10gDialect
+  graphql:
+    graphiql:
+      enabled: true
     
 server:
-  port: 9001
+  port: 9002
   
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
-    service-url:
-      default-zone: "http://localhost:8761/eureka"
   instance:
-    hostname: ${spring.application.name}
-    instance-id: ${spring.application.name}:${server.port}
+    instance-id: ${eureka.instance.hostname}:${server.port}
