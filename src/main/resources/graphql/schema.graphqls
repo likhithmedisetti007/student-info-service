@@ -1,0 +1,15 @@
+type Query{
+getStudentInfoById(id: String): StudentInfoResponse
+}
+
+type StudentInfoResponse{
+studentInfo: StudentInfo
+}
+
+type StudentInfo{
+id: ID!
+name: String!
+age: String!
+gender: String!
+remarks: String!
+}
