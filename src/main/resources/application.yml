@@ -25,7 +25,7 @@ spring:
 eureka:
   client:
     register-with-eureka: true
-    fetch-registry: true
+    fetch-registry: false
   instance:
     instance-id: ${eureka.instance.hostname}:${server.port}
     lease-renewal-interval-in-seconds: 5
